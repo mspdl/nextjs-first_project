@@ -1,4 +1,6 @@
+/* eslint-disable @next/next/inline-script-id */
 import Link from "next/link";
+import Script from "next/script";
 import { useState } from "react";
 
 type Props = {
@@ -25,6 +27,11 @@ const About = ({ name }: Props) => {
         </li>
       </ul>
       <button onClick={() => setCount(count + 1)}>increase</button>
+      <Script
+        src="https://google-analytics.com/analytics.js"
+        strategy="lazyOnload"
+      />
+      <Script strategy="afterInteractive">{`window.alert('page loaded!')`}</Script>
     </div>
   );
 };
