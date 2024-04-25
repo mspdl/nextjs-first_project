@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/inline-script-id */
 import Link from "next/link";
 import Script from "next/script";
@@ -20,10 +21,19 @@ const About = ({ name }: Props) => {
       <p>This text: {name}</p>
       <ul className="list-disc list-inside">
         <li>
-          <Link href="/about/morgan">Morgan</Link>
+          <Link href="/about/morgan">{"Morgan (link using <Link>)"}</Link>
         </li>
         <li>
-          <Link href="/about/john">John</Link>
+          <Link
+            href={{ pathname: "/about/[slug]", query: { slug: "thomas" } }}
+            replace
+            scroll={false}
+          >
+            {"Thomas (link using <Link>)"}
+          </Link>
+        </li>
+        <li>
+          <a href="/about/john">{"John (link using <a>)"}</a>
         </li>
       </ul>
       <button onClick={() => setCount(count + 1)}>increase</button>
