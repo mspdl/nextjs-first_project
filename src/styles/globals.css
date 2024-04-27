@@ -31,3 +31,8 @@ body {
     text-wrap: balance;
   }
 }
+
+
+.red {
+  background-color: #FF0000;
+}
