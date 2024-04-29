@@ -16,15 +16,19 @@ const About = ({ name }: Props) => {
 
   return (
     <div>
-      <h1 className={`p-5 text-5xl ${styles.title}`}>
-        About page ({count})
-      </h1>
+      <h1 className={`p-5 text-5xl ${styles.title}`}>About page ({count})</h1>
       <p>Started in {DEFAULT_VALUE}</p>
       {/* Only refresh the component (p) above (the only that changed) but keeps the state*/}
       <p>My name is {process.env.NEXT_PUBLIC_NAME}</p>
       <p>This text: {name}</p>
-      <ul className="list-disc list-inside">
-        <li>
+      <ul
+        className="list-disc list-inside"
+        style={{
+          color: count > DEFAULT_VALUE ? "red" : "green",
+          fontWeight: "bold",
+        }}
+      >
+        <li className="item-1">
           <Link href="/about/morgan">{"Morgan (link using <Link>)"}</Link>
         </li>
         <li>
@@ -46,6 +50,20 @@ const About = ({ name }: Props) => {
         strategy="lazyOnload"
       />
       <Script strategy="afterInteractive">{`console.log('page loaded!')`}</Script>
+
+      <style global jsx>
+        {`
+          body {
+            background-color: pink;
+          }
+          ul {
+            background-color: orange;
+          }
+          .item-1 {
+            background-color: pink;
+          }
+        `}
+      </style>
     </div>
   );
 };
