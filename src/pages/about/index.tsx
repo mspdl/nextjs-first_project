@@ -54,7 +54,7 @@ const About = ({ name }: Props) => {
       <style global jsx>
         {`
           body {
-            background-color: pink;
+            background-color: black;
           }
           ul {
             background-color: orange;
