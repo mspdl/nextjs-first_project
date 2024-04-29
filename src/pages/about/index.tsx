@@ -4,6 +4,7 @@ import { MyButton } from "@/components/MyButton";
 import Link from "next/link";
 import Script from "next/script";
 import { useState } from "react";
+import styles from "../../styles/About.module.css";
 
 type Props = {
   name: string;
@@ -15,7 +16,9 @@ const About = ({ name }: Props) => {
 
   return (
     <div>
-      <h1 className="p-5 text-5xl">About page ({count})</h1>
+      <h1 className={`p-5 text-5xl ${styles.title}`}>
+        About page ({count})
+      </h1>
       <p>Started in {DEFAULT_VALUE}</p>
       {/* Only refresh the component (p) above (the only that changed) but keeps the state*/}
       <p>My name is {process.env.NEXT_PUBLIC_NAME}</p>
