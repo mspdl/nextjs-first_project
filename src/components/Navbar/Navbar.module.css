@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+}
+
+.linkItem {
+  padding: 05px 15px;
+  border-radius: 3px;
+  transition: 0.5s;
+  text-decoration: underline;
+}
+
+.linkItem:hover {
+  color: #000;
+  text-decoration: none;
+  background-color: #eee;
+}

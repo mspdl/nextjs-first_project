@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import Navbar from "../Navbar";
 import styles from "./Layout.module.css";
 
 type Props = {
@@ -11,6 +12,7 @@ export const Layout = ({ children }: Props) => {
       <header className={styles.header}>
         <h1 className="font-bold text-3xl">My own project</h1>
       </header>
+      <Navbar />
       <main>{children}</main>
       <footer className={styles.footer}>All rights reserved</footer>
     </div>
