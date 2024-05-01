@@ -14,3 +14,13 @@
   text-decoration: none;
   background-color: #eee;
 }
+
+.linkActive  {
+  color: #eee;
+  text-decoration: none;
+  background-color: #000;
+}
+
+.linkActive a {
+  cursor: default;
+}
