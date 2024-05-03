@@ -6,16 +6,16 @@ import { useRouter } from "next/router";
 const Navbar = () => {
   const router = useRouter();
 
-  function checkActiveLink(currentPath: string) {
-    if (currentPath === "/" && router.pathname !== "/") {
-      return null;
-    }
-    if (router.pathname.indexOf(currentPath) === 0) {
-      return styles.linkActive;
-    }
+  // function checkActiveLink(currentPath: string) {
+  //   if (currentPath === "/" && router.pathname !== "/") {
+  //     return null;
+  //   }
+  //   if (router.pathname.indexOf(currentPath) === 0) {
+  //     return styles.linkActive;
+  //   }
 
-    return null;
-  }
+  //   return null;
+  // }
 
   return (
     <ul className={styles.container}>
@@ -23,9 +23,11 @@ const Navbar = () => {
         <li
           key={index}
           className={`
-            ${styles.linkItem} ${checkActiveLink(link.path)}`}
+            ${styles.linkItem} ${
+            link.path.includes(router.pathname) ? styles.linkActive : ""
+          }`}
         >
-          <Link href={link.path}>{link.label}</Link>
+          <Link href={link.path[0]}>{link.label}</Link>
         </li>
       ))}
     </ul>
