@@ -1,6 +1,7 @@
 import { Layout } from "@/components/Layout";
 import { Post } from "@/types/Post";
 import { GetStaticProps } from "next";
+import Head from "next/head";
 import { ParsedUrlQuery } from "querystring";
 
 type PostProps = {
@@ -11,6 +12,7 @@ const PostPage = ({ post }: PostProps) => {
   return (
     <Layout>
       <div className="p-3 flex flex-col items-center">
+        <Head><title>Blog - {post.title}</title></Head>
         <h1 className="text-5xl pb-2">{"Morgan's Blog"}</h1>
         <h2 className="text-3xl font-bold pb-2">{post.title}</h2>
         <p className="max-w-2xl">{post.body}</p>

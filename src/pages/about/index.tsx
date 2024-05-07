@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/inline-script-id */
 import { Layout } from "@/components/Layout";
 import { MyButton } from "@/components/MyButton";
+import Head from "next/head";
 import Link from "next/link";
 import Script from "next/script";
 import { useState } from "react";
@@ -18,6 +19,9 @@ const About = ({ name }: Props) => {
   return (
     <Layout>
       <div>
+        <Head>
+          <title>About</title>
+        </Head>
         <h1 className={`p-5 text-5xl ${styles.title}`}>About page ({count})</h1>
         <p>Started in {DEFAULT_VALUE}</p>
         {/* Only refresh the component (p) above (the only that changed) but keeps the state*/}

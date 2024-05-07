@@ -1,6 +1,8 @@
 import { Layout } from "@/components/Layout";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import Utils from "../../../utils/utils";
 
 const AboutItem = () => {
   const router = useRouter();
@@ -21,7 +23,10 @@ const AboutItem = () => {
   return (
     <Layout>
       <div className="p-3">
-        <p className="pb-2 text-2xl">{slug + "'s Dynamic page"}</p>
+        <Head>
+          <title>About {Utils.capitalize("" + slug)}</title>
+        </Head>
+        <p className="pb-2 text-2xl">{Utils.capitalize("" + slug) + "'s Dynamic page"}</p>
         <p className="mb-2">Pathname: {router.pathname}</p>
         <p className="mb-2">isFallback: {router.isFallback.toString()}</p>
 

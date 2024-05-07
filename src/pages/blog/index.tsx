@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { Post } from "@/types/Post";
+import Head from "next/head";
 import Link from "next/link";
 
 type BlogProps = {
@@ -11,6 +12,9 @@ const Blog = ({ name, posts }: BlogProps) => {
   return (
     <Layout>
       <div className="w-full flex flex-col items-center">
+        <Head>
+          <title>Blog</title>
+        </Head>
         <div className="max-w-3xl flex flex-col items-center">
           <h1 className="text-5xl p-3">{name + "'s blog"}</h1>
 
