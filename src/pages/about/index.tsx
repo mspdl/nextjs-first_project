@@ -22,6 +22,7 @@ const About = ({ name }: Props) => {
         <Head>
           <title>About</title>
         </Head>
+        <img src="/tenis.png" alt="tenis" width={220} />
         <h1 className={`p-5 text-5xl ${styles.title}`}>About page ({count})</h1>
         <p>Started in {DEFAULT_VALUE}</p>
         {/* Only refresh the component (p) above (the only that changed) but keeps the state*/}
