@@ -3,9 +3,11 @@
 import { Layout } from "@/components/Layout";
 import { MyButton } from "@/components/MyButton";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { useState } from "react";
+import SneakersImage from "../../../public/sneakers.png";
 import styles from "../../styles/About.module.css";
 
 type Props = {
@@ -22,7 +24,15 @@ const About = ({ name }: Props) => {
         <Head>
           <title>About</title>
         </Head>
-        <img src="/tenis.png" alt="tenis" width={220} />
+
+        <Image src={SneakersImage} alt="Sneakers" height={200} width={200} />
+        <Image
+          src="https://www.google.com.br/google.jpg"
+          alt="Google Logo"
+          width={200}
+          height={200}
+        />
+
         <h1 className={`p-5 text-5xl ${styles.title}`}>About page ({count})</h1>
         <p>Started in {DEFAULT_VALUE}</p>
         {/* Only refresh the component (p) above (the only that changed) but keeps the state*/}
