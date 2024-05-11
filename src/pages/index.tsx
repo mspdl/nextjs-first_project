@@ -13,6 +13,41 @@ export default function Home() {
       >
         <Head>
           <title>Home</title>
+          <meta name="title" content="Meta Tags — Preview, Edit and Generate" />
+          <meta
+            name="description"
+            content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
+          />
+
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="http://localhost:3000/" />
+          <meta
+            property="og:title"
+            content="Meta Tags — Preview, Edit and Generate"
+          />
+          <meta
+            property="og:description"
+            content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
+          />
+          <meta
+            property="og:image"
+            content="http://localhost:3000/sneakers.png"
+          />
+
+          <meta property="twitter:card" content="summary_large_image" />
+          <meta property="twitter:url" content="http://localhost:3000/" />
+          <meta
+            property="twitter:title"
+            content="Meta Tags — Preview, Edit and Generate"
+          />
+          <meta
+            property="twitter:description"
+            content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
+          />
+          <meta
+            property="twitter:image"
+            content="http://localhost:3000/sneakers.png"
+          />
         </Head>
         <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
           <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">

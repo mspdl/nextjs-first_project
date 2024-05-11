@@ -12,7 +12,27 @@ const PostPage = ({ post }: PostProps) => {
   return (
     <Layout>
       <div className="p-3 flex flex-col items-center">
-        <Head><title>Blog - {post.title}</title></Head>
+        <Head>
+          <title>Blog - {post.title}</title>{" "}
+          <meta name="title" content={post.title} />
+          <meta name="description" content={post.body} />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content={`http://localhost:3000/blog/${post.id}`} />
+          <meta property="og:title" content={post.title} />
+          <meta property="og:description" content={post.body} />
+          <meta
+            property="og:image"
+            content="http://localhost:3000/sneakers.png"
+          />
+          <meta property="twitter:card" content="summary_large_image" />
+          <meta property="twitter:url"  content={`http://localhost:3000/blog/${post.id}`} />
+          <meta property="twitter:title" content={post.title} />
+          <meta property="twitter:description" content={post.body} />
+          <meta
+            property="twitter:image"
+            content="http://localhost:3000/sneakers.png"
+          />
+        </Head>
         <h1 className="text-5xl pb-2">{"Morgan's Blog"}</h1>
         <h2 className="text-3xl font-bold pb-2">{post.title}</h2>
         <p className="max-w-2xl">{post.body}</p>
