@@ -1,9 +1,10 @@
-import { Users } from "@/utils/users";
 import { NextApiHandler } from "next";
 import prisma from "../../../../libs/prisma";
 
 const handlerGet: NextApiHandler = async (req, res) => {
-  res.status(200).json(Users);
+  const users = await prisma.user.findMany({ where: { active: true } });
+
+  res.status(200).json({ status: true, users });
 };
 
 const handlerPost: NextApiHandler = async (req, res) => {
