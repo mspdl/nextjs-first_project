@@ -19,10 +19,23 @@ const handlerPut: NextApiHandler = async (req, res) => {
 
   let user, error;
 
+  let data: { name?: string; active?: boolean } = {};
+  if (name) data.name = name;
+  if (active) {
+    switch (active) {
+      case "true":
+        data.active = true;
+        break;
+      case "false":
+        data.active = false;
+        break;
+    }
+  }
+
   try {
     user = await prisma.user.update({
       where: { id: parseInt(id as string) },
-      data: { name, active: active === "true" ? true : false },
+      data,
     });
   } catch (dbError) {
     error = dbError;
