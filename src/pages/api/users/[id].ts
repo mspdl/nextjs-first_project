@@ -17,8 +17,6 @@ const handlerPut: NextApiHandler = async (req, res) => {
   const { name, active } = req.body;
   const { id } = req.query;
 
-  let user, error;
-
   let data: { name?: string; active?: boolean } = {};
   if (name) data.name = name;
   if (active) {
@@ -33,15 +31,29 @@ const handlerPut: NextApiHandler = async (req, res) => {
   }
 
   try {
-    user = await prisma.user.update({
+    const user = await prisma.user.update({
       where: { id: parseInt(id as string) },
       data,
     });
-  } catch (dbError) {
-    error = dbError;
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(404).json({ error });
   }
+};
 
-  user ? res.status(200).json({ user }) : res.status(404).json({ error });
+const handlerDelete: NextApiHandler = async (req, res) => {
+  const { id } = req.query;
+
+  try {
+    await prisma.user.delete({
+      where: {
+        id: parseInt(id as string),
+      },
+    });
+    res.json("User with id " + id + " deleted successfully");
+  } catch (error) {
+    res.status(404).json({ error });
+  }
 };
 
 const handler: NextApiHandler = (req, res) => {
@@ -51,6 +63,9 @@ const handler: NextApiHandler = (req, res) => {
       break;
     case "PUT":
       handlerPut(req, res);
+      break;
+    case "DELETE":
+      handlerDelete(req, res);
       break;
   }
 };
