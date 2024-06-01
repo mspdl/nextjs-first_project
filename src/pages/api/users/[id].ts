@@ -6,6 +6,7 @@ const handlerGet: NextApiHandler = async (req, res) => {
 
   const user = await prisma.user.findFirst({
     where: { id: parseInt(urlUserId as string), active: true },
+    select: { id: true, name: true, email: true },
   });
 
   user
