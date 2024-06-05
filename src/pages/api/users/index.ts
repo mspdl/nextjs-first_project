@@ -3,17 +3,9 @@ import prisma from "../../../../libs/prisma";
 
 const handlerGet: NextApiHandler = async (req, res) => {
   const users = await prisma.user.findMany({
-    where: {
-      AND: [
-        {
-          name: {
-            contains: "Lee",
-          },
-        },
-        { active: true },
-      ],
-    },
+    where: { active: true },
     select: { id: true, name: true, email: true },
+    orderBy: { name: "asc" },
   });
 
   res.status(200).json({ status: true, users });
