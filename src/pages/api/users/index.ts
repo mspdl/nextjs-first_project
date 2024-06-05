@@ -19,14 +19,18 @@ const handlerGet: NextApiHandler = async (req, res) => {
     orderBy: { id: "asc" },
   });
 
-  res.status(200).json({ status: true, users });
+  try {
+    res.status(200).json({ status: true, users });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 };
 
 const handlerPost: NextApiHandler = async (req, res) => {
   const { name, email } = req.body;
+  const newUser = await prisma.user.create({ data: { name, email } });
 
   try {
-    const newUser = await prisma.user.create({ data: { name, email } });
     res.status(201).json({ status: true, user: newUser });
   } catch (error) {
     res.status(500).json({ error });
