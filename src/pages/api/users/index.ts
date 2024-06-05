@@ -2,10 +2,21 @@ import { NextApiHandler } from "next";
 import prisma from "../../../../libs/prisma";
 
 const handlerGet: NextApiHandler = async (req, res) => {
+  const { page } = req.query;
+
+  const take = 3;
+  let skip = 0;
+
+  if (page) {
+    skip = (parseInt(page as string) - 1) * take;
+  }
+
   const users = await prisma.user.findMany({
+    skip,
+    take,
     where: { active: true },
     select: { id: true, name: true, email: true },
-    orderBy: { name: "asc" },
+    orderBy: { id: "asc" },
   });
 
   res.status(200).json({ status: true, users });
