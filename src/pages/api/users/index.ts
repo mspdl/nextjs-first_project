@@ -3,7 +3,16 @@ import prisma from "../../../../libs/prisma";
 
 const handlerGet: NextApiHandler = async (req, res) => {
   const users = await prisma.user.findMany({
-    where: { active: true },
+    where: {
+      AND: [
+        {
+          name: {
+            contains: "Lee",
+          },
+        },
+        { active: true },
+      ],
+    },
     select: { id: true, name: true, email: true },
   });
 
