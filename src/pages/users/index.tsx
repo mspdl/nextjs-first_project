@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { User } from "@/types/User";
+import axios from "axios";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
@@ -18,13 +19,13 @@ const Users = ({ users }: Props) => {
   const handleLoadMore = async () => {
     if (!loading) {
       setLoading(true);
-      const req = await fetch(`/api/users?page=${pageCount + 1}`);
-      const json = await req.json();
-      if (json.status) {
-        if (json.users.length < 3) {
+      const json = await axios.get(`/api/users?page=${pageCount + 1}`);
+
+      if (json.data.status) {
+        if (json.data.users.length < 3) {
           setShowMore(false);
         }
-        setUserList([...userList, ...json.users]);
+        setUserList([...userList, ...json.data.users]);
       }
       setLoading(false);
       setPageCount(pageCount + 1);
@@ -39,7 +40,12 @@ const Users = ({ users }: Props) => {
         </Head>
         <h1 className="text-3xl font-bold text-center">Users Page</h1>
 
-        <Link className="p-1 border border-blue-500 rounded-md bg-blue-300" href={`/users/new`}>New User</Link>
+        <Link
+          className="p-1 border border-blue-500 rounded-md bg-blue-300"
+          href={`/users/new`}
+        >
+          New User
+        </Link>
 
         <ul>
           {userList.map((user, index) => (
@@ -55,7 +61,7 @@ const Users = ({ users }: Props) => {
 
         {loading && "loading"}
 
-        {showMore && (
+        {showMore && !loading && (
           <button
             onClick={handleLoadMore}
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"

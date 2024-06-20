@@ -1,4 +1,5 @@
 import { Layout } from "@/components/Layout";
+import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -11,18 +12,11 @@ const NewUser = () => {
 
   const handleSaveForm = async () => {
     if (nameInput && emailInput) {
-      const req = await fetch(`/api/users`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: nameInput,
-          email: emailInput,
-        }),
+      const json = await axios.post(`/api/users`, {
+        name: nameInput,
+        email: emailInput,
       });
-      const json = await req.json();
-      if (json.status) {
+      if (json.data.status) {
         setNameInput("");
         setEmailInput("");
         if (
@@ -33,7 +27,7 @@ const NewUser = () => {
           router.push("/users");
         }
       } else {
-        alert(JSON.stringify(json.error));
+        alert(JSON.stringify(json.data.error));
       }
     } else {
       alert("You need to fill out user name and email");
