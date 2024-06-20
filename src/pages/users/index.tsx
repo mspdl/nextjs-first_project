@@ -1,8 +1,9 @@
 import { Layout } from "@/components/Layout";
 import { User } from "@/types/User";
 import Head from "next/head";
+import Link from "next/link";
 import { useState } from "react";
-import api from "../../libs/api";
+import api from "../../../libs/api";
 
 type Props = {
   users: User[];
@@ -37,6 +38,8 @@ const Users = ({ users }: Props) => {
           <title>Users</title>
         </Head>
         <h1 className="text-3xl font-bold text-center">Users Page</h1>
+
+        <Link className="p-1 border border-blue-500 rounded-md bg-blue-300" href={`/users/new`}>New User</Link>
 
         <ul>
           {userList.map((user, index) => (
