@@ -9,6 +9,10 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const { data: session } = useSession();
 
+  if (session) {
+    console.log("user", session.user);
+  }
+
   return (
     <Layout>
       <main
@@ -53,7 +57,14 @@ export default function Home() {
           />
         </Head>
 
-        {!session && <button onClick={() => signIn()}>Login</button>}
+        {!session && (
+          <button
+            className="border border-white rounded-md p-3 mb-10"
+            onClick={() => signIn()}
+          >
+            Login
+          </button>
+        )}
         {session && (
           <>
             <p>Hello, {session.user?.name}!</p>
