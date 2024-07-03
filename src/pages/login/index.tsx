@@ -46,10 +46,10 @@ const Login = () => {
           <Head>
             <title>Login</title>
           </Head>
-          <h1 className="text-3xl">Login</h1>
-          <div className="flex flex-col gap-2 w-72 pt-3">
+          <div className="flex flex-col gap-2 pt-3 items-center">
+            <h1 className="text-3xl">Login</h1>
             <input
-              className="p-2 rounded-md text-black"
+              className="p-2 w-72 rounded-md text-black"
               type="email"
               placeholder="type your email here"
               value={email}
@@ -59,7 +59,7 @@ const Login = () => {
               disabled={loading}
             />
             <input
-              className="p-2 rounded-md text-black"
+              className="p-2 w-72 rounded-md text-black"
               type="password"
               placeholder="type your password here"
               value={password}
@@ -68,18 +68,18 @@ const Login = () => {
               }}
               disabled={loading}
             />
+            <button
+              onClick={handleSubmit}
+              className="p-1 rounded-md bg-blue-300 my-3 w-72 text-white hover:bg-blue-500 hover:text-black transition ease-in-out delay-100"
+              disabled={loading}
+            >
+              Login
+            </button>
+            {errorMessage && (
+              <p className="font-bold text-red-600">{errorMessage}</p>
+            )}
+            {loading && <p>Loading...</p>}
           </div>
-          <button
-            onClick={handleSubmit}
-            className="p-1 rounded-md bg-blue-300 my-3 w-72 text-white hover:bg-blue-500 hover:text-black transition ease-in-out delay-100"
-            disabled={loading}
-          >
-            Login
-          </button>
-          {errorMessage && (
-            <p className="font-bold text-red-600">{errorMessage}</p>
-          )}
-          {loading && <p>Loading...</p>}
         </div>
       </Layout>
     </div>

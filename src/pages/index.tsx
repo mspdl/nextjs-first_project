@@ -64,7 +64,12 @@ export default function Home() {
         {session && (
           <>
             <p>Hello, {session.user?.name}!</p>
-            <button onClick={() => signOut()}>Logout</button>
+            <button
+              className="border border-white rounded-md p-3 mb-10"
+              onClick={() => signOut()}
+            >
+              Logout
+            </button>
           </>
         )}
 

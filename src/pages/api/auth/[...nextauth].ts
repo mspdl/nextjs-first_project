@@ -13,12 +13,12 @@ export const authOptions: NextAuthOptions = {
         email: { label: "E-mail", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (credentials, req) => {
-        if (credentials?.email && credentials?.password) {
+      authorize: async (credentials) => {
+        if (credentials && credentials.email && credentials.password) {
           const user = await api.getUserByEmail(credentials.email);
           if (user) {
             return {
-              id: user.id,
+              id: user.id.toString(),
               name: user.name,
               email: user.email,
               role: user.role,
