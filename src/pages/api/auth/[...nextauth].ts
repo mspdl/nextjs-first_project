@@ -1,3 +1,4 @@
+import { AuthUser } from "@/types/AuthUser";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -20,7 +21,7 @@ export const authOptions: NextAuthOptions = {
               id: user.id,
               name: user.name,
               email: user.email,
-              role: user.role
+              role: user.role,
             };
           }
         }
@@ -28,6 +29,20 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+    session: async ({ session, token }) => {
+      if (token) {
+        session.user = token.user as AuthUser;
+      }
+      return session;
+    },
+  },
 };
 
 export default NextAuth(authOptions);
