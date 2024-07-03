@@ -1,19 +1,21 @@
 import { Layout } from "@/components/Layout";
+import { AuthUser } from "@/types/AuthUser";
 import { User } from "@/types/User";
 import axios from "axios";
-import { signIn, useSession } from "next-auth/react";
+import { GetServerSideProps } from "next";
+import { getServerSession } from "next-auth";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 import api from "../../../libs/api";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 type Props = {
   users: User[];
+  loggedUser: AuthUser;
 };
 
-const Users = ({ users }: Props) => {
-  const { data: session, status: sessionStatus } = useSession();
-
+const Users = ({ users, loggedUser }: Props) => {
   const [showMore, setShowMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const [pageCount, setPageCount] = useState(1);
@@ -44,61 +46,60 @@ const Users = ({ users }: Props) => {
 
         <h1 className="text-3xl font-bold text-center">Users Page</h1>
 
-        {sessionStatus === "loading" && <div>Loading</div>}
-        {sessionStatus === "unauthenticated" && (
-          <div>
-            <p>{`You're not allowed to access this page`}</p>
-            <button
-              className="border border-white rounded-md p-3 mb-10"
-              onClick={() => signIn()}
-            >
-              Login
-            </button>
-          </div>
-        )}
-        {sessionStatus === "authenticated" && (
-          <>
-            <Link
-              className="p-1 border border-blue-500 rounded-md bg-blue-300"
-              href={`/users/new`}
-            >
-              New User
-            </Link>
+        <div>
+          Hello {loggedUser.name}! You are logged as a {loggedUser.role}.
+        </div>
 
-            <ul>
-              {userList.map((user, index) => (
-                <li key={index}>
-                  <p>
-                    {index + 1} - {user.name}{" "}
-                    <span className="italic text-xs">({user.email})</span>
-                    <span className="text-xs"> [{user.id}]</span>
-                  </p>
-                </li>
-              ))}
-            </ul>
+        <Link
+          className="p-1 border border-blue-500 rounded-md bg-blue-300"
+          href={`/users/new`}
+        >
+          New User
+        </Link>
 
-            {loading && "loading"}
+        <ul>
+          {userList.map((user, index) => (
+            <li key={index}>
+              <p>
+                {index + 1} - {user.name}{" "}
+                <span className="italic text-xs">({user.email})</span>
+                <span className="text-xs"> [{user.id}]</span>
+              </p>
+            </li>
+          ))}
+        </ul>
 
-            {showMore && !loading && (
-              <button
-                onClick={handleLoadMore}
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              >
-                Load more
-              </button>
-            )}
-          </>
+        {loading && "loading"}
+
+        {showMore && !loading && (
+          <button
+            onClick={handleLoadMore}
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >
+            Load more
+          </button>
         )}
       </div>
     </Layout>
   );
 };
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: true,
+      },
+    };
+  }
+
   const users = await api.getAllUsers(0);
 
   return {
-    props: { users },
+    props: { loggedUser: session.user, users },
   };
 };
 
