@@ -2,6 +2,7 @@ import { AuthUser } from "@/types/AuthUser";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GithubProvider from "next-auth/providers/github";
 import api from "../../../../libs/api";
 
 export const authOptions: NextAuthOptions = {
@@ -27,6 +28,10 @@ export const authOptions: NextAuthOptions = {
         }
         return null;
       },
+    }),
+    GithubProvider({
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
     }),
   ],
   callbacks: {
