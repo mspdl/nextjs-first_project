@@ -17,7 +17,10 @@ const PostPage = ({ post }: PostProps) => {
           <meta name="title" content={post.title} />
           <meta name="description" content={post.body} />
           <meta property="og:type" content="website" />
-          <meta property="og:url" content={`http://localhost:3000/blog/${post.id}`} />
+          <meta
+            property="og:url"
+            content={`http://localhost:3000/blog/${post.id}`}
+          />
           <meta property="og:title" content={post.title} />
           <meta property="og:description" content={post.body} />
           <meta
@@ -25,7 +28,10 @@ const PostPage = ({ post }: PostProps) => {
             content="http://localhost:3000/sneakers.png"
           />
           <meta property="twitter:card" content="summary_large_image" />
-          <meta property="twitter:url"  content={`http://localhost:3000/blog/${post.id}`} />
+          <meta
+            property="twitter:url"
+            content={`http://localhost:3000/blog/${post.id}`}
+          />
           <meta property="twitter:title" content={post.title} />
           <meta property="twitter:description" content={post.body} />
           <meta
@@ -43,15 +49,22 @@ const PostPage = ({ post }: PostProps) => {
 
 export default PostPage;
 
+type IPath = {
+  params: {
+    id: string;
+  };
+  locale: string;
+};
+
 export const getStaticPaths = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
   const posts: Post[] = await res.json();
+  const paths: IPath[] = [];
 
-  const paths = posts.map((post) => ({
-    params: {
-      id: post.id.toString(),
-    },
-  }));
+  posts.map((post) => {
+    paths.push({ params: { id: post.id.toString() }, locale: "en" });
+    paths.push({ params: { id: post.id.toString() }, locale: "pt" });
+  });
 
   return { paths, fallback: "blocking" };
 };
@@ -62,8 +75,12 @@ interface IParams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params as IParams;
+  const { locale } = context;
+
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
   const post: Post = await res.json();
+
+  console.log("Selected Language: " + locale);
 
   return {
     props: {
