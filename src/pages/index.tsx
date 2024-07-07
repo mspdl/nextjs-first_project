@@ -3,11 +3,14 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const { data: session } = useSession();
+
+  const router = useRouter();
 
   return (
     <Layout>
@@ -52,6 +55,8 @@ export default function Home() {
             content="http://localhost:3000/sneakers.png"
           />
         </Head>
+
+        Selected Language: {router.locale}
 
         {!session && (
           <button
