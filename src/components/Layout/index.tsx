@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
@@ -11,10 +12,12 @@ type Props = {
 export const Layout = ({ children }: Props) => {
   const router = useRouter();
 
+  const { t } = useTranslation("common");
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1 className="font-bold text-3xl">My own project</h1>
+        <h1 className="font-bold text-3xl">{t("title")}</h1>
 
         <ul>
           {router.locales?.map((locale, index) => (
@@ -25,11 +28,11 @@ export const Layout = ({ children }: Props) => {
             </li>
           ))}
         </ul>
-        <p>Selected Language: {router.locale}</p>
+        <p>{t("choosen_language", { language: router.locale })}</p>
       </header>
       <Navbar />
       <main>{children}</main>
-      <footer className={styles.footer}>All rights reserved</footer>
+      <footer className={styles.footer}>{t("footer.rights")}.</footer>
     </div>
   );
 };

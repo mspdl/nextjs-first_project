@@ -1,3 +1,8 @@
 {
-  "welcome": "Welcome!"
+  "welcome": "Welcome!",
+  "title": "My own project",
+  "choosen_language": "Choosen Language: {{language}}",
+  "footer": {
+    "rights": "All rights reserved"
+  }
 }
