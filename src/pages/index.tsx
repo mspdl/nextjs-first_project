@@ -1,13 +1,17 @@
 import { Layout } from "@/components/Layout";
+import { GetStaticProps } from "next";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+const Home = () => {
   const { data: session } = useSession();
+  const { t } = useTranslation("common");
 
   return (
     <Layout>
@@ -52,6 +56,7 @@ export default function Home() {
             content="http://localhost:3000/sneakers.png"
           />
         </Head>
+        <h1 className="text-center font-bold text-3xl">{t("welcome")}</h1>
 
         {!session && (
           <button
@@ -181,4 +186,14 @@ export default function Home() {
       </main>
     </Layout>
   );
-}
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, ["common"])),
+    },
+  };
+};
+
+export default Home;
