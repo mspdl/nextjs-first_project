@@ -1,0 +1,12 @@
+{
+  "page_title": "Sobre",
+  "document_title": "Página sobre (Contador: {{count}})",
+  "started_in": "Contador iniciado em: {{value}}",
+  "sneakers": "Tênis",
+  "google_logo": "Logo do Google",
+  "my_name": "Meu nome é {{name}}",
+  "server_text": "Este texto NÃO pode ser acessado do lado do cliente: {{text}}",
+  "using_link": "Link para {{name}} usando <Link>",
+  "using_a": "Link para {{name}} link usando <a>",
+  "increase": "Aumentar Contador"
+}

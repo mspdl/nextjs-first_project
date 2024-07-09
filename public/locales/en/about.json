@@ -1,0 +1,12 @@
+{
+  "page_title": "About",
+  "document_title": "About page (Count: {{count}})",
+  "started_in": "Count started in: {{value}}",
+  "sneakers": "Sneakers",
+  "google_logo": "Google Logo",
+  "my_name": "My name is {{name}}",
+  "server_text": "This text CANNOT be accessed by the client side: {{text}}",
+  "using_link": "Link to {{name}} using <Link>",
+  "using_a": "Link to {{name}} link using <a>",
+  "increase": "Increase count"
+}
