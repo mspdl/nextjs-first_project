@@ -1,7 +1,6 @@
-import { i18n } from "./next-i18next.config";
+const { i18n } = require("./i18n");
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   reactStrictMode: true,
   images: { domains: ["www.google.com.br"] },
   headers: async () => {
@@ -17,5 +16,3 @@ const nextConfig = {
   },
   i18n,
 };
-
-export default nextConfig;
