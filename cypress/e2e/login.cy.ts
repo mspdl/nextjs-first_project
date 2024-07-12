@@ -18,4 +18,28 @@ describe("Login", () => {
     cy.contains("Sign in failed. Check the details you provided are correct.");
     cy.url().should("contain", "error=CredentialsSignin");
   });
+
+  it("should do cretentials login properly", () => {
+    const email = "m@m.com";
+    const password = "1234";
+
+    cy.get("#input-email-for-credentials-provider").type(email);
+    cy.get("#input-password-for-credentials-provider").type(password);
+    cy.contains("Sign in with Credentials").click();
+
+    cy.get('button:contains("Log Out")').should("exist");
+    cy.get("button").should("have.text", "Log Out");
+  });
+
+  it("should do logout properly", () => {
+    const email = "m@m.com";
+    const password = "1234";
+
+    cy.get("#input-email-for-credentials-provider").type(email);
+    cy.get("#input-password-for-credentials-provider").type(password);
+    cy.contains("Sign in with Credentials").click();
+
+    cy.get('button:contains("Log Out")').click();
+    cy.get("button").should("have.text", "Log In");
+  });
 });
